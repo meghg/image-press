@@ -1,0 +1,9 @@
+<form class="sign-in" ngNativeValidate (submit)="signOn()">
+  <mat-form-field appearance="outline" class="sign-in__input">
+    <input matInput [(ngModel)]="username" name="username" placeholder="Username" required>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="sign-in__input">
+    <input matInput [(ngModel)]="password" name="password" type="password" placeholder="Password" required>
+  </mat-form-field>
+  <button class="sign-in__button" mat-raised-button color="primary">Sign In</button>
+</form>

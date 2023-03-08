@@ -1,0 +1,13 @@
+.gallery {
+	width: 52.725rem;
+	margin: auto;
+
+	display: flex;
+	flex-flow: column;
+	align-items: flex-end;
+}
+
+.disabled {
+	opacity: 0.3;
+	pointer-events: none;
+}

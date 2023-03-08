@@ -1,0 +1,36 @@
+.gallery-upload {
+
+	position: relative;
+	width: 52.725rem;
+	margin: 2rem auto 5rem;
+
+	&__label {
+		display: block;
+		margin: 1.25rem 0;
+	}
+
+	&__button {
+		margin-right: 0.5rem;
+	}
+
+	&--disabled {
+		.gallery-upload__inner {
+		    opacity: 0.2;
+		    filter: grayscale(1);
+		    pointer-events: none;
+		    user-select: none;
+		}
+
+		&::after {
+			content: "Please sign-in to start uploading images.";
+		    position: absolute;
+		    font-size:1rem;
+		    width: auto;
+		    height: auto;
+		    left: 50%;
+		    top: 50%;
+		    transform: translate(-50%, -50%);
+		}
+	}
+
+}

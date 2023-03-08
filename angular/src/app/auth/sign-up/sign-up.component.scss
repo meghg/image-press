@@ -1,0 +1,8 @@
+.sign-up {
+
+	margin: 1.725rem 0;
+	text-align: center;
+	&__input, &__button {
+		width: calc(100% - 2rem);
+	}
+}
