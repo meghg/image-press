@@ -1,5 +1,4 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { GalleryService } from 'src/app/core/services/gallery.service';
 import { GalleryImage } from 'src/app/core/interfaces/gallery-image.interface';
 
 import { Observable, Subject } from 'rxjs';
@@ -16,7 +15,7 @@ export class GalleryGridComponent {
 
   @Output() deleteImage: EventEmitter<string> = new EventEmitter();
 
-  constructor(private galleryService: GalleryService){}
+  constructor(){}
 
 
 }

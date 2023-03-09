@@ -16,35 +16,30 @@ import { HttpClient,HttpHeaders } from '@angular/common/http';
 
 export class GalleryComponent {
 
-  imageName = '';
-  imageDescription = '';
-  selectedFile: File | undefined;
-
   galleryImages: Observable<GalleryImage[]>;
+
   isLoggedIn: boolean = false;
   adminCapabilities: boolean = false;
 
   constructor(private galleryService: GalleryService, private authService: AuthService) {
-    this.galleryImages = this.galleryService.getAllGalleryImages();
     this.isLoggedIn = this.authService.isLoggedIn();
+    this.updateGalleryImages();
   }
 
-  ngOnInit() {
+  uploadGalleryImage(imageData: FormData) {
+    this.galleryService.uploadGalleryImage(imageData).subscribe(() => this.updateGalleryImages());
   }
 
-  deleteGalleryImage(id: string) {
-    this.galleryService.deleteImage(id).subscribe(response => {
-      this.galleryImages = this.galleryService.getAllGalleryImages();
-    });
+
+  deleteGalleryImage(imageId: string) {
+    this.galleryService.deleteImage(imageId).subscribe(() => this.updateGalleryImages());
   }
 
-  toggleAdminSettings(toggle: any){
-    if(toggle.checked) {
+  updateGalleryImages() {
+    if(this.adminCapabilities)
       this.galleryImages = this.galleryService.getUserImages();
-    } else {
+    else 
       this.galleryImages = this.galleryService.getAllGalleryImages();
-    }
-    this.adminCapabilities = toggle.checked;
   }
 
 

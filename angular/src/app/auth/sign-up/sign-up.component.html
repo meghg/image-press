@@ -1,4 +1,4 @@
-<form class="sign-up" ngNativeValidate (submit)="signUp()">
+<form class="sign-up" ngNativeValidate (submit)="signUp($event, confirmPasswordRef)">
   <mat-form-field appearance="outline" class="sign-up__input">
     <input matInput [(ngModel)]="name" name="name" placeholder="Name" required>
   </mat-form-field>
@@ -6,10 +6,10 @@
     <input matInput [(ngModel)]="username" name="username" placeholder="Username"  required>
   </mat-form-field>
   <mat-form-field appearance="outline" class="sign-up__input">
-    <input matInput type="password" name="password" placeholder="Password" required>
+    <input matInput [(ngModel)]="password" type="password" name="password" type="password" placeholder="Password" required>
   </mat-form-field>
   <mat-form-field appearance="outline" class="sign-up__input">
-    <input matInput [(ngModel)]="password" name="password" type="password" placeholder="Confirm Password" required>
+    <input matInput [(ngModel)]="confirmPassword" #confirmPasswordRef type="password" name="passwordConfirm" type="password" placeholder="Confirm Password" required>
   </mat-form-field>
   <button class="sign-up__button" mat-raised-button color="primary">Sign Up</button>
 </form>

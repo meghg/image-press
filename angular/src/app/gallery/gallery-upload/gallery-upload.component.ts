@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { GalleryService } from 'src/app/core/services/gallery.service';
 
@@ -14,24 +14,24 @@ export class GalleryUploadComponent {
   public selectedFile: File | undefined;
 
   @Input() disableUpload: boolean = true;
+  @Output() uploadImage: EventEmitter<FormData> = new EventEmitter();
 
   constructor(private galleryService: GalleryService){}
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
-    console.log(this.selectedFile);
   }
 
-  onSubmit() {
+  onSubmit(event: SubmitEvent, fileInput: HTMLInputElement) {
     
-    const formData = new FormData();
-    formData.append('image', this.selectedFile as any);
-    formData.append('imageName', this.imageName);
-    formData.append('imageDescription', this.imageDescription);
+    if(!this.selectedFile) return;
 
-    this.galleryService.uploadGalleryImage(formData).subscribe(response => {
-      console.log(response);
-    });
+    const imageData = new FormData();
+    imageData.append('image', this.selectedFile as any);
+
+    fileInput.value = "";
+
+    this.uploadImage.emit(imageData);
 
   }
 

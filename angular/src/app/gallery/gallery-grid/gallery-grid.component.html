@@ -1,5 +1,14 @@
-<mat-grid-list  class="gallery-grid" [class.gallery-grid--admin]="adminCapabilities" cols="4" rowHeight="1:1">
-  <mat-grid-tile class="gallery-grid__item" *ngFor="let galleryImage of galleryImages" (click)="deleteImage.emit(galleryImage._id)">
-  	<img  [src]="galleryImage.imageUrl" class="gallery-grid__image" />
+<mat-grid-list  
+	class="gallery-grid" 
+	cols="4" 
+	rowHeight="1:1"
+	[class.gallery-grid--admin]="adminCapabilities">
+  <mat-grid-tile 
+  	class="gallery-grid__item" 
+  	*ngFor="let galleryImage of galleryImages" 
+  	(click)="deleteImage.emit(galleryImage._id)">
+  	<img  
+  		[src]="galleryImage.imageUrl" 
+  		class="gallery-grid__image" />
   </mat-grid-tile>
 </mat-grid-list>

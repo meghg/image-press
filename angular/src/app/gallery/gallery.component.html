@@ -1,5 +1,14 @@
 <div class="gallery">
-  <app-gallery-upload [disableUpload]="!isLoggedIn"></app-gallery-upload>
-  <mat-slide-toggle (change)="toggleAdminSettings($event)" [disabled]="!isLoggedIn">Admin Settings</mat-slide-toggle>
-  <app-gallery-grid [adminCapabilities]="adminCapabilities" [galleryImages]="galleryImages | async" (deleteImage)="deleteGalleryImage($event)"></app-gallery-grid>
+  <app-gallery-upload 
+    [disableUpload]="!isLoggedIn"
+    (uploadImage)="uploadGalleryImage($event)"
+    ></app-gallery-upload>
+  <mat-slide-toggle 
+    [disabled]="!isLoggedIn"
+    [(ngModel)]="adminCapabilities"
+    (change)="updateGalleryImages()">Admin Settings</mat-slide-toggle>
+  <app-gallery-grid 
+    [adminCapabilities]="adminCapabilities" 
+    [galleryImages]="galleryImages | async"
+    (deleteImage)="deleteGalleryImage($event)"></app-gallery-grid>
 </div>

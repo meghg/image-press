@@ -9,6 +9,9 @@
 # Images
 /images
 
+# Env
+.env
+
 # Node
 /node_modules
 npm-debug.log

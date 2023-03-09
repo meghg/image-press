@@ -1,15 +1,28 @@
-<mat-card class="gallery-upload" [class.gallery-upload--disabled]="disableUpload">
+<mat-card class="gallery-upload" 
+					[class.gallery-upload--disabled]="disableUpload">
 	<div class="gallery-upload__inner">
 	  <mat-card-header>
 	    <mat-card-title>Upload an Image</mat-card-title>
 	  </mat-card-header>
 	  <mat-card-content>
-	    <form (ngSubmit)="onSubmit()">
-	        <mat-label class="gallery-upload__label">{{ selectedFile?.name ?? 'Select an image to upload' }}</mat-label>
-	        <input hidden (change)="onFileSelected($event)" #fileInput type="file" id="file">
+	    <form (ngSubmit)="onSubmit($event, fileInput)">
+	        <mat-label 
+	        	class="gallery-upload__label">
+	        	{{ selectedFile?.name ?? 'Select an image to upload' }}
+	        </mat-label>
+	        <input hidden #fileInput
+	        			 type="file" 
+	        			 accept="image/png, image/gif, image/jpeg, image/webp"
+	        			 (change)="onFileSelected($event)">
 
-	        <button class="gallery-upload__button" type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
-	      	<button class="gallery-upload__button" mat-raised-button color="primary" type="submit">Upload Image</button>
+	        <button mat-raised-button 
+	        				type="button" 
+	        				class="gallery-upload__button"
+	        				(click)="fileInput.click()">Choose File</button>
+	      	<button mat-raised-button
+	      					class="gallery-upload__button" 
+	      					color="primary" 
+	      					type="submit">Upload Image</button>
 	    </form>
 	  </mat-card-content>
 	</div>

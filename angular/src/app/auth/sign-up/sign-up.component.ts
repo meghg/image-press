@@ -12,11 +12,18 @@ export class SignUpComponent {
   public name: string = "";
   public username: string = "";
   public password: string = "";
+  public confirmPassword: string = "";
 
-  constructor(private router: Router, private authService: AuthService) {
-  }
+  constructor(private router: Router, private authService: AuthService) {}
 
-  signUp() {
+  signUp(event: SubmitEvent, confirmPasswordRef: HTMLInputElement) {
+
+    if(this.password !== this.confirmPassword){
+      confirmPasswordRef.setCustomValidity('Passwords do not match.');
+      confirmPasswordRef.reportValidity();
+      return;
+    }
+
     this.authService.signUp(this.name, this.username, this.password).subscribe(response => {
       this.router.navigate(['/gallery']);
     });
