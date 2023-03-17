@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 
 import { Observable } from 'rxjs';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { InteractionService } from 'src/app/core/services/interaction.service';
 
 @Component({
   selector: 'app-gallery',
@@ -21,13 +22,17 @@ export class GalleryComponent {
   isLoggedIn: boolean = false;
   adminCapabilities: boolean = false;
 
-  constructor(private galleryService: GalleryService, private authService: AuthService) {
+  constructor(private interactionService: InteractionService, private galleryService: GalleryService, private authService: AuthService) {
     this.isLoggedIn = this.authService.isLoggedIn();
     this.updateGalleryImages();
   }
 
   uploadGalleryImage(imageData: FormData) {
-    this.galleryService.uploadGalleryImage(imageData).subscribe(() => this.updateGalleryImages());
+    this.galleryService.uploadGalleryImage(imageData).subscribe(() => {
+
+      this.updateGalleryImages();
+      this.interactionService.displaySnackBar("Uploaded gallery image: " + (imageData.get("image") as any).name);
+  });
   }
 
 

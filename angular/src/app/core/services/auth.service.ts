@@ -3,8 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { User } from 'src/app/core/interfaces/user.interface';
 
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, BehaviorSubject, catchError, of } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,7 @@ import { map } from 'rxjs/operators';
 export class AuthService {
 
   private apiUrl = 'http://localhost:3000/auth';
+  private isSignedIn$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(private http: HttpClient) {}
 
@@ -35,6 +36,16 @@ export class AuthService {
       );
   }
 
+  validate(){
+    return this.http.post(`${this.apiUrl}/validate/`, {}, { headers: this.getAuthHeader() })
+      .pipe(tap(() => {
+        this.setSignedInState(true)
+      }),catchError(err => {
+        this.setSignedInState(false);
+        return of(err);
+      }));
+  }
+
   getUsers() {
     return this.http.get<User>(`http://localhost:3000/users/`, { headers: this.getAuthHeader() });
   }
@@ -45,6 +56,14 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     return !!this.getSessionToken();
+  }
+
+  getSignedInState() {
+    return this.isSignedIn$;
+  }
+
+  setSignedInState(flag: boolean) {
+    this.isSignedIn$.next(flag);
   }
 
   getAuthHeader(): HttpHeaders {

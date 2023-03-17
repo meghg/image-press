@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
-
+import { InteractionService } from 'src/app/core/services/interaction.service';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -14,7 +14,7 @@ export class SignUpComponent {
   public password: string = "";
   public confirmPassword: string = "";
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private interactionService: InteractionService, private authService: AuthService, private router: Router) {}
 
   signUp(event: SubmitEvent, confirmPasswordRef: HTMLInputElement) {
 
@@ -26,6 +26,8 @@ export class SignUpComponent {
 
     this.authService.signUp(this.name, this.username, this.password).subscribe(response => {
       this.router.navigate(['/gallery']);
+    }, ({ error }) => {
+      this.interactionService.displaySnackBar(error);
     });
   }
 

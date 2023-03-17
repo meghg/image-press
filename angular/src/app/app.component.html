@@ -6,10 +6,15 @@
 
    <div class="header__right">
      <a href="/gallery" mat-button class="header__link">Gallery<mat-icon>favorite</mat-icon></a>
-     <a routerLink="/auth" mat-button *ngIf="!isLoggedIn" class="header__link">Sign in<mat-icon>login</mat-icon></a>
-     <a href="#" mat-button (click)="signOut($event)" *ngIf="isLoggedIn" class="header__link">Sign Out<mat-icon>login</mat-icon></a>
+     <a routerLink="/auth" mat-button *ngIf="!(isSignedIn$ | async)" class="header__link">Sign in<mat-icon>login</mat-icon></a>
+     <a href="#" mat-button (click)="signOut($event)" *ngIf="(isSignedIn$ | async)" class="header__link">Sign Out<mat-icon>login</mat-icon></a>
    </div>
 
 </mat-toolbar>
 
 <router-outlet></router-outlet>
+
+<div class="app__loader" [class.app__loader--active]="isLoading$ | async">
+  <mat-spinner *ngIf="isLoading$ | async" class="app__loader-spinner" diameter="40"></mat-spinner>
+  <span class="app__loader-text">Loading...</span>
+</div>

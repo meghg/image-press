@@ -10,3 +10,21 @@
 		margin-left: auto;
 	}
 }
+
+.app__loader {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    position: fixed;
+    right: 2rem;
+    bottom: 1.5rem;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: 0.2s linear opacity;
+
+    &--active {
+    	height: auto;
+    	opacity: 1;
+    }
+}

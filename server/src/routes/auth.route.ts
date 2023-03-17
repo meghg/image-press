@@ -1,6 +1,6 @@
 import express from 'express';
 import { AuthService } from '../services/auth.service';
-
+import { authenticateToken } from '../middleware/authenticateToken';
 const router = express.Router();
 const authService = new AuthService();
 
@@ -22,6 +22,10 @@ router.post('/signon', async (req, res) => {
   } else {
     res.status(401).send('Incorrect username or password');
   }
+});
+
+router.post('/validate', authenticateToken, async (req, res) => {
+  res.json({});
 });
 
 export { router as authRouter };
